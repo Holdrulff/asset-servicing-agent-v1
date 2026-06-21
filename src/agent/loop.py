@@ -10,7 +10,8 @@ from ..tools.submit import submit_record
 from .prompts import EXTRACTOR_SYSTEM, build_user_message
 
 TEXT_PREVIEW_CHARS = 8000
-REQUIRED_BEFORE_SUBMIT = {"validate_isin", "lookup_golden_record", "check_date_coherence"}
+REQUIRED_BEFORE_SUBMIT = {"validate_isin", "lookup_golden_record", "check_date_coherence",
+                          "check_value_coherence"}
 VALIDATION_REMINDER = "Use as tools de validação e finalize com submit_record."
 
 

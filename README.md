@@ -24,13 +24,18 @@ python -m src.main --provider replay
 python -m src.main --provider deepseek
 #    (troque por --provider openai com OPENAI_API_KEY para confirmar a abstração)
 
-pytest -q                                           # 38 testes (tools, loop, routing, harness, e2e)
+pytest -q                                           # 39 testes (tools, loop, routing, harness, e2e)
 ```
 
 Saída em `output/`: `records/<nome-do-documento>.json` (1 por documento, **nomeado pelo arquivo
 original**, ex.: `01_energetica_vale_tiete_dividendo.json`) e `exceptions_report.md` (relatório de
 exceções curto). O trace de auditoria por documento (`traces/<doc>.jsonl`) é **opt-in** — rode com
 `--trace`; sem a flag, `output/` contém apenas `records/` e `exceptions_report.md`.
+
+> O `output/` versionado foi gerado com `--provider deepseek` (extração real do modelo). O
+> `--provider replay` é determinístico (offline, sem chave) e reproduz os mesmos **desfechos**
+> auto/review; pode diferir apenas em **motivos secundários** de um documento escaneado (doc 07),
+> porque as fixtures do replay são propositalmente conservadoras.
 
 O lote é processado **em paralelo** (fan-out por documento, I/O-bound). Ajuste a concorrência em
 `config.yaml` → `max_workers` (default 4); `retry` controla backoff em rate limit da API.
