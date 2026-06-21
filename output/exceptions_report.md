@@ -7,14 +7,14 @@ Total: 8 | Auto-aprovados: 3 | Em revisão: 5
 
 | Doc | Emissor | Evento | Confiança | Desfecho | Motivos |
 |-----|---------|--------|-----------|----------|---------|
-| 01_energetica_vale_tiete_dividendo | Energética Vale do Tietê S.A. | DIVIDENDO | alta (1.0) | 🟢 auto | — |
-| 02_banco_meridional_jcp | Banco Meridional do Brasil S.A. | JCP | alta (1.0) | 🟢 auto | — |
-| 03_siderurgica_paranaense_proventos | COMPANHIA SIDERÚRGICA PARANENSE S.A. | JCP | alta (0.847) | 🔴 REVIEW | agent_flagged, golden_partial, title_substance_conflict |
-| 04_rede_varejo_jcp_sem_data | REDE VAREJO BRASIL S.A. | JCP | alta (1.0) | 🔴 REVIEW | agent_flagged, missing_required |
-| 05_aurora_saneamento_dividendo_datas | AURORA SANEAMENTO S.A. | DIVIDENDO | media (0.75) | 🔴 REVIEW | agent_flagged, date_incoherence |
-| 06_petroquimica_litoral_grupamento | PETROQUÍMICA LITORAL S.A. | GRUPAMENTO | alta (1.0) | 🟢 auto | — |
-| 07_telecom_norte_jcp_SCAN | Telecom Norte Participações S.A. | JCP | media (0.732) | 🔴 REVIEW | ocr_origin |
-| 08_construtora_horizonte_bonificacao | CONSTRUTORA HORIZONTE S.A. | BONIFICACAO | media (0.687) | 🔴 REVIEW | agent_flagged, golden_unmatched |
+| 01_energetica_vale_tiete_dividendo | Energética Vale do Tietê S.A. | DIVIDENDO | alta (1.0) | auto | — |
+| 02_banco_meridional_jcp | Banco Meridional do Brasil S.A. | JCP | alta (1.0) | auto | — |
+| 03_siderurgica_paranaense_proventos | COMPANHIA SIDERÚRGICA PARANENSE S.A. | JCP | alta (0.847) | REVIEW | agent_flagged, golden_partial, title_substance_conflict |
+| 04_rede_varejo_jcp_sem_data | REDE VAREJO BRASIL S.A. | JCP | alta (1.0) | REVIEW | agent_flagged, missing_required |
+| 05_aurora_saneamento_dividendo_datas | AURORA SANEAMENTO S.A. | DIVIDENDO | media (0.75) | REVIEW | agent_flagged, date_incoherence |
+| 06_petroquimica_litoral_grupamento | PETROQUÍMICA LITORAL S.A. | GRUPAMENTO | alta (1.0) | auto | — |
+| 07_telecom_norte_jcp_SCAN | Telecom Norte Participações S.A. | JCP | media (0.732) | REVIEW | ocr_origin |
+| 08_construtora_horizonte_bonificacao | CONSTRUTORA HORIZONTE S.A. | BONIFICACAO | media (0.687) | REVIEW | agent_flagged, golden_unmatched |
 
 ## Documentos em revisão (detalhe)
 

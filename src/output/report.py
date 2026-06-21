@@ -53,7 +53,7 @@ def _write_md(records, auto, review, output_dir: Path) -> None:
     ]
     for record in _sorted(records):
         row = _row(record)
-        outcome = "🔴 REVIEW" if row["review"] else "🟢 auto"
+        outcome = "REVIEW" if row["review"] else "auto"
         lines.append(
             f"| {_md_cell(row['doc'])} | {_md_cell(row['issuer'])} | {_md_cell(row['event'])} "
             f"| {_md_cell(row['confidence'])} | {outcome} | {_md_cell(row['codes'])} |"

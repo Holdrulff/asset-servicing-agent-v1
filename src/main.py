@@ -83,7 +83,7 @@ def _write_outputs(docs: list[Path], results: dict[str, dict], output_dir: Path)
 
     missing = [_doc_id(pdf) for pdf in docs if not results.get(_doc_id(pdf))]
     if missing:
-        print(f"\n⚠️  {len(missing)} documento(s) sem record (falha não tratada): {missing}")
+        print(f"\nWARNING: {len(missing)} documento(s) sem record (falha não tratada): {missing}")
 
     for pdf in docs:
         document_id = _doc_id(pdf)

@@ -129,14 +129,14 @@ tests/                    isin/golden/coherence/schema/routing/critic/loop/harne
 
 | Doc | Evento | Desafio | Desfecho |
 |-----|--------|---------|----------|
-| 01 | Dividendo | baseline limpo | 🟢 auto |
-| 02 | JCP | bruto→líquido (×0,825) | 🟢 auto |
-| 03 | "Dividendos" | **substância é JCP** (TJLP) → conflito título×substância | 🔴 review |
-| 04 | JCP | data de pagamento "A definir" → campo ausente | 🔴 review |
-| 05 | Dividendo intercalar | pagamento antes do ex → incoerência de datas | 🔴 review |
-| 06 | Grupamento | proporção 10:1, sem caixa | 🟢 auto |
-| 07 | JCP | escaneado → OCR, baixa confiança | 🔴 review |
-| 08 | Bonificação | emissor fora do golden_records | 🔴 review |
+| 01 | Dividendo | baseline limpo | auto |
+| 02 | JCP | bruto→líquido (×0,825) | auto |
+| 03 | "Dividendos" | **substância é JCP** (TJLP) → conflito título×substância | review |
+| 04 | JCP | data de pagamento "A definir" → campo ausente | review |
+| 05 | Dividendo intercalar | pagamento antes do ex → incoerência de datas | review |
+| 06 | Grupamento | proporção 10:1, sem caixa | auto |
+| 07 | JCP | escaneado → OCR, baixa confiança | review |
+| 08 | Bonificação | emissor fora do golden_records | review |
 
 Reproduzido pelo `--provider replay` (auto: 01,02,06; review: 03,04,05,07,08).
 
