@@ -1,0 +1,15 @@
+# ambiente
+.venv/
+.env
+
+# python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# NOTA: output/ é COMMITADO de propósito — é entregável do case
+# (a saída gerada sobre o lote: JSONs + relatório de exceções).
+
+# artefatos internos (não versionar)
+/output_mock/
+/data/documents/mock/

@@ -1,0 +1,267 @@
+{
+  "document_id": "01_energetica_vale_tiete_dividendo",
+  "source_file": "data\\documents\\01_energetica_vale_tiete_dividendo.pdf",
+  "ingestion": {
+    "method": "text_native",
+    "ocr_engine": null,
+    "pages": 1,
+    "ocr_confidence": null
+  },
+  "issuer": {
+    "value": "Energética Vale do Tietê S.A.",
+    "confidence_score": 1.0,
+    "source_text": "ENERGÉTICA VALE DO TIETÊ S.A.\nCompanhia Aberta",
+    "source_location": "cabeçalho",
+    "rationale": "Nome da companhia no cabeçalho do aviso, confirmado pelo golden record."
+  },
+  "cnpj": {
+    "value": "12.345.678/0001-90",
+    "confidence_score": 1.0,
+    "source_text": "CNPJ/ME nº 12.345.678/0001-90",
+    "source_location": "cabeçalho",
+    "rationale": "CNPJ explícito no cabeçalho, confirmado pelo golden record."
+  },
+  "isin": {
+    "value": "BRTIETACNOR3",
+    "confidence_score": 1.0,
+    "source_text": "TIET3 (ISIN BRTIETACNOR3)",
+    "source_location": "corpo",
+    "rationale": "ISIN explícito no documento. Formato válido. Dígito mod-10 falso é esperado (ISIN sintético de lote de teste). Golden record confirmou."
+  },
+  "ticker": {
+    "value": "TIET3",
+    "confidence_score": 1.0,
+    "source_text": "Código de negociação TIET3 (ISIN BRTIETACNOR3)",
+    "source_location": "corpo",
+    "rationale": "Ticker explícito no corpo do aviso, confirmado pelo golden record."
+  },
+  "event_type": {
+    "value": "DIVIDENDO",
+    "confidence_score": 1.0,
+    "source_text": "AVISO AOS ACIONISTAS — Pagamento de Dividendos / Tipo de evento Dividendo",
+    "source_location": "corpo",
+    "rationale": "Título e corpo do aviso indicam 'Dividendos'. Sem menção a TJLP ou JCP. Classificação por substância: DIVIDENDO.",
+    "normalized_code": "DIVIDENDO",
+    "classification_evidence": [
+      "AVISO AOS ACIONISTAS — Pagamento de Dividendos",
+      "Tipo de evento: Dividendo",
+      "ausência de referências a TJLP, JCP, art. 9º Lei 9.249/95"
+    ],
+    "title_vs_substance_conflict": false
+  },
+  "currency": "BRL",
+  "value_or_ratio": {
+    "kind": "cash_per_share",
+    "gross_value": 0.4275,
+    "irrf_rate": null,
+    "net_value": null,
+    "ratio": null,
+    "confidence_score": 0.95,
+    "source_text": "Valor bruto por ação ordinária R$ 0,4275000000 (ON)",
+    "source_location": "tabela",
+    "rationale": "Valor bruto explícito na tabela. IRRF condicional (10% sobre excedente de R$ 50k/mês/beneficiário) — impossível calcular net_value uniforme por ação. net_value=null conforme regra para IRRF condicional."
+  },
+  "dates": {
+    "approval": {
+      "value": "28/05/2026",
+      "confidence_score": 1.0,
+      "source_text": "28/05/2026",
+      "source_location": "tabela",
+      "rationale": "Data de aprovação explícita na tabela. Também confirmada no texto do aviso: 'reunião realizada em 28 de maio de 2026'."
+    },
+    "data_com": {
+      "value": "12/06/2026",
+      "confidence_score": 1.0,
+      "source_text": "12/06/2026 (data-base / 'data com')",
+      "source_location": "tabela",
+      "rationale": "Data-base explícita na tabela e no corpo do texto."
+    },
+    "ex": {
+      "value": "15/06/2026",
+      "confidence_score": 1.0,
+      "source_text": "15/06/2026",
+      "source_location": "tabela",
+      "rationale": "Data ex-dividendos explícita na tabela."
+    },
+    "payment": {
+      "value": "03/07/2026",
+      "confidence_score": 1.0,
+      "source_text": "03/07/2026",
+      "source_location": "tabela",
+      "rationale": "Data de pagamento explícita na tabela."
+    }
+  },
+  "validation": {
+    "golden_record": {
+      "status": "matched",
+      "matched_on": [
+        "isin",
+        "ticker",
+        "cnpj",
+        "issuer"
+      ],
+      "discrepancies": [],
+      "row": {
+        "emissor": "Energética Vale do Tietê S.A.",
+        "cnpj": "12.345.678/0001-90",
+        "isin": "BRTIETACNOR3",
+        "ticker": "TIET3",
+        "classe": "ON",
+        "segmento_listagem": "Novo Mercado",
+        "status": "ativo"
+      }
+    },
+    "isin": {
+      "isin": "BRTIETACNOR3",
+      "format_valid": true,
+      "check_digit_valid": false,
+      "country": "BR",
+      "country_ok": true,
+      "status": "format_only"
+    },
+    "coherence": {
+      "dates": {
+        "checks": [
+          {
+            "rule": "ordering",
+            "pair": "approval<=data_com",
+            "ok": true
+          },
+          {
+            "rule": "ordering",
+            "pair": "data_com<=ex",
+            "ok": true
+          },
+          {
+            "rule": "ordering",
+            "pair": "ex<=payment",
+            "ok": true
+          },
+          {
+            "rule": "ex_after_com",
+            "ok": true,
+            "detail": "3d"
+          }
+        ],
+        "violations": [],
+        "ok": true,
+        "max_severity": "none"
+      },
+      "value": {
+        "checks": [
+          {
+            "rule": "net=gross*(1-irrf)",
+            "ok": null,
+            "detail": "dados insuficientes (bruto/líquido/irrf)"
+          }
+        ],
+        "violations": [],
+        "ok": true,
+        "max_severity": "none"
+      }
+    }
+  },
+  "confidence_overall": {
+    "confidence_score": 1.0,
+    "drivers": [
+      "golden: matched (+)",
+      "isin: dígito não confere (warning, lote sintético)"
+    ]
+  },
+  "review": {
+    "required": false,
+    "severity": "none",
+    "reasons": [],
+    "suggested_action": "auto-aprovar"
+  },
+  "agent_audit": {
+    "steps": 5,
+    "tool_calls": [
+      {
+        "step": 0,
+        "name": "read_document"
+      },
+      {
+        "step": 1,
+        "name": "validate_isin"
+      },
+      {
+        "step": 1,
+        "name": "lookup_golden_record"
+      },
+      {
+        "step": 2,
+        "name": "check_date_coherence"
+      },
+      {
+        "step": 2,
+        "name": "check_value_coherence"
+      },
+      {
+        "step": 3,
+        "name": "log_reasoning"
+      },
+      {
+        "step": 4,
+        "name": "submit_record"
+      }
+    ],
+    "critic_verdict": {
+      "veredito_geral": "ok",
+      "rebaixar_confianca": false,
+      "campos": [
+        {
+          "campo": "issuer",
+          "concorda": true,
+          "motivo": "Nome coincide com cabeçalho do aviso."
+        },
+        {
+          "campo": "cnpj",
+          "concorda": true,
+          "motivo": "CNPJ explícito no cabeçalho."
+        },
+        {
+          "campo": "isin",
+          "concorda": true,
+          "motivo": "ISIN BRTIETACNOR3 conforme texto. Check digit não é avaliado por regra."
+        },
+        {
+          "campo": "ticker",
+          "concorda": true,
+          "motivo": "Ticker TIET3 explícito no corpo."
+        },
+        {
+          "campo": "event_type",
+          "concorda": true,
+          "motivo": "Classificação DIVIDENDO correta, sem evidência de JCP/TJLP."
+        },
+        {
+          "campo": "currency",
+          "concorda": true,
+          "motivo": "Moeda BRL implícita pelo uso de R$."
+        },
+        {
+          "campo": "value_or_ratio",
+          "concorda": true,
+          "motivo": "Valor bruto R$ 0,4275 conforme tabela. IRRF condicional tratado corretamente."
+        },
+        {
+          "campo": "dates",
+          "concorda": true,
+          "motivo": "Todas as datas (aprovação, data-com, ex, pagamento) conferem com o texto."
+        }
+      ],
+      "parse_ok": true,
+      "ran": true
+    },
+    "self_consistency_runs": 1,
+    "tokens": 25733,
+    "duration_s": 45.451
+  },
+  "extraction_metadata": {
+    "provider": "deepseek",
+    "model": "deepseek-v4-flash",
+    "prompt_version": "v1",
+    "timestamp": "2026-06-21T22:03:28.049119+00:00"
+  }
+}

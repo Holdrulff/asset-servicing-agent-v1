@@ -1,0 +1,292 @@
+{
+  "document_id": "04_rede_varejo_jcp_sem_data",
+  "source_file": "data\\documents\\04_rede_varejo_jcp_sem_data.pdf",
+  "ingestion": {
+    "method": "text_native",
+    "ocr_engine": null,
+    "pages": 1,
+    "ocr_confidence": null
+  },
+  "issuer": {
+    "value": "REDE VAREJO BRASIL S.A.",
+    "confidence_score": 1.0,
+    "source_text": "REDE VAREJO BRASIL S.A.",
+    "source_location": "cabeçalho",
+    "rationale": "Nome da companhia no cabeçalho do aviso, confirmado pelo golden record."
+  },
+  "cnpj": {
+    "value": "08.777.666/0001-33",
+    "confidence_score": 1.0,
+    "source_text": "CNPJ/ME nº 08.777.666/0001-33",
+    "source_location": "cabeçalho",
+    "rationale": "CNPJ no cabeçalho, confirmado pelo golden record."
+  },
+  "isin": {
+    "value": "BRRVBRACNOR9",
+    "confidence_score": 1.0,
+    "source_text": "ISIN BRRVBRACNOR9",
+    "source_location": "corpo",
+    "rationale": "ISIN no corpo do aviso, confirmado pelo golden record. Dígito mod-10 inválido conforme esperado para ISINs sintéticos deste lote - não é motivo de revisão."
+  },
+  "ticker": {
+    "value": "RVBR3",
+    "confidence_score": 1.0,
+    "source_text": "Código de negociação RVBR3",
+    "source_location": "corpo",
+    "rationale": "Ticker no corpo do aviso, confirmado pelo golden record."
+  },
+  "event_type": {
+    "value": "JCP",
+    "confidence_score": 1.0,
+    "source_text": "Juros sobre o Capital Próprio (JCP)",
+    "source_location": "corpo",
+    "rationale": "Documento explícita 'Juros sobre o Capital Próprio' com IRRF de 17,5%, caracterizando JCP por substância.",
+    "normalized_code": "JCP",
+    "classification_evidence": [
+      "Título: 'Juros sobre o Capital Próprio'",
+      "IRRF na fonte 17,5% (art. 9º Lei 9.249/95)",
+      "Valor bruto e líquido por ação com diferença do IRRF"
+    ],
+    "title_vs_substance_conflict": false
+  },
+  "currency": "BRL",
+  "value_or_ratio": {
+    "kind": "cash_per_share",
+    "gross_value": 0.205,
+    "irrf_rate": 0.175,
+    "net_value": 0.169125,
+    "ratio": null,
+    "confidence_score": 1.0,
+    "source_text": "Valor bruto por ação ON R$ 0,2050000000 / IRRF na fonte 17,5% / Valor líquido por ação ON R$ 0,1691250000",
+    "source_location": "tabela",
+    "rationale": "Valores em tabela no corpo do aviso. Líquido = bruto × (1 - 0,175) = 0,169125, validado pela checagem de coerência."
+  },
+  "dates": {
+    "approval": {
+      "value": "09/06/2026",
+      "confidence_score": 1.0,
+      "source_text": "reunião realizada em 09 de junho de 2026",
+      "source_location": "corpo",
+      "rationale": "Data da reunião do Conselho de Administração que aprovou o JCP."
+    },
+    "data_com": {
+      "value": "23/06/2026",
+      "confidence_score": 1.0,
+      "source_text": "23 de junho de 2026 (“data com”) / Data-base (“data com”) 23/06/2026",
+      "source_location": "corpo e tabela",
+      "rationale": "Data com confirmada tanto no corpo quanto na tabela do aviso."
+    },
+    "ex": {
+      "value": "24/06/2026",
+      "confidence_score": 1.0,
+      "source_text": "24 de junho de 2026 (“ex-JCP”) / Data “ex-JCP” 24/06/2026",
+      "source_location": "corpo e tabela",
+      "rationale": "Data ex-JCP confirmada tanto no corpo quanto na tabela do aviso."
+    },
+    "payment": {
+      "value": null,
+      "confidence_score": 1.0,
+      "source_text": "A definir (vide aviso complementar)",
+      "source_location": "tabela",
+      "rationale": "Documento indica 'A definir' - data de pagamento será divulgada posteriormente. Valor nulo conforme regra de campo ausente."
+    }
+  },
+  "validation": {
+    "golden_record": {
+      "status": "matched",
+      "matched_on": [
+        "isin",
+        "ticker",
+        "cnpj",
+        "issuer"
+      ],
+      "discrepancies": [],
+      "row": {
+        "emissor": "Rede Varejo Brasil S.A.",
+        "cnpj": "08.777.666/0001-33",
+        "isin": "BRRVBRACNOR9",
+        "ticker": "RVBR3",
+        "classe": "ON",
+        "segmento_listagem": "Novo Mercado",
+        "status": "ativo"
+      }
+    },
+    "isin": {
+      "isin": "BRRVBRACNOR9",
+      "format_valid": true,
+      "check_digit_valid": false,
+      "country": "BR",
+      "country_ok": true,
+      "status": "format_only"
+    },
+    "coherence": {
+      "dates": {
+        "checks": [
+          {
+            "rule": "ordering",
+            "pair": "approval<=data_com",
+            "ok": true
+          },
+          {
+            "rule": "ordering",
+            "pair": "data_com<=ex",
+            "ok": true
+          },
+          {
+            "rule": "ex_after_com",
+            "ok": true,
+            "detail": "1d"
+          }
+        ],
+        "violations": [],
+        "ok": true,
+        "max_severity": "none"
+      },
+      "value": {
+        "checks": [
+          {
+            "rule": "net=gross*(1-irrf)",
+            "ok": true,
+            "expected_net": 0.169125,
+            "got_net": 0.169125,
+            "tol": 0.0016912499999999998
+          }
+        ],
+        "violations": [],
+        "ok": true,
+        "max_severity": "none"
+      }
+    }
+  },
+  "confidence_overall": {
+    "confidence_score": 1.0,
+    "drivers": [
+      "golden: matched (+)",
+      "isin: dígito não confere (warning, lote sintético)"
+    ]
+  },
+  "review": {
+    "required": true,
+    "severity": "media",
+    "reasons": [
+      {
+        "code": "missing_required",
+        "severity": "media",
+        "detail": "data de pagamento ausente",
+        "suggested_action": "aguardar aviso complementar"
+      },
+      {
+        "code": "agent_flagged",
+        "severity": "baixa",
+        "detail": "Data de pagamento ausente (\"A definir\" no documento) - campo obrigatório não disponível; revisão humana necessária para acompanhamento de aviso complementar.",
+        "suggested_action": "rever conforme apontado pelo agente"
+      }
+    ],
+    "suggested_action": "aguardar aviso complementar"
+  },
+  "agent_audit": {
+    "steps": 5,
+    "tool_calls": [
+      {
+        "step": 0,
+        "name": "read_document"
+      },
+      {
+        "step": 1,
+        "name": "validate_isin"
+      },
+      {
+        "step": 1,
+        "name": "lookup_golden_record"
+      },
+      {
+        "step": 2,
+        "name": "check_date_coherence"
+      },
+      {
+        "step": 2,
+        "name": "check_value_coherence"
+      },
+      {
+        "step": 3,
+        "name": "log_reasoning"
+      },
+      {
+        "step": 4,
+        "name": "submit_record"
+      }
+    ],
+    "critic_verdict": {
+      "veredito_geral": "ok",
+      "rebaixar_confianca": false,
+      "campos": [
+        {
+          "campo": "issuer",
+          "concorda": true,
+          "motivo": "Nome da companhia no cabeçalho suportado pelo texto."
+        },
+        {
+          "campo": "cnpj",
+          "concorda": true,
+          "motivo": "CNPJ no cabeçalho suportado."
+        },
+        {
+          "campo": "isin",
+          "concorda": true,
+          "motivo": "ISIN no corpo do aviso. Dígito verificador sintético não é motivo de suspeita."
+        },
+        {
+          "campo": "ticker",
+          "concorda": true,
+          "motivo": "Código de negociação no corpo suportado."
+        },
+        {
+          "campo": "event_type",
+          "concorda": true,
+          "motivo": "Classificação JCP suportada por título e IRRF 17,5%."
+        },
+        {
+          "campo": "currency",
+          "concorda": true,
+          "motivo": "Moeda implícita BRL, coerente com contexto brasileiro."
+        },
+        {
+          "campo": "value_or_ratio",
+          "concorda": true,
+          "motivo": "Valores bruto, IRRF e líquido confirmados no texto e coerentes."
+        },
+        {
+          "campo": "dates.approval",
+          "concorda": true,
+          "motivo": "Data da reunião no corpo suportada."
+        },
+        {
+          "campo": "dates.data_com",
+          "concorda": true,
+          "motivo": "Data com confirmada em corpo e tabela."
+        },
+        {
+          "campo": "dates.ex",
+          "concorda": true,
+          "motivo": "Data ex-JCP confirmada em corpo e tabela."
+        },
+        {
+          "campo": "dates.payment",
+          "concorda": true,
+          "motivo": "Valor nulo porque documento indica 'A definir'."
+        }
+      ],
+      "parse_ok": true,
+      "ran": true
+    },
+    "self_consistency_runs": 1,
+    "tokens": 25538,
+    "duration_s": 53.588
+  },
+  "extraction_metadata": {
+    "provider": "deepseek",
+    "model": "deepseek-v4-flash",
+    "prompt_version": "v1",
+    "timestamp": "2026-06-21T22:03:36.186708+00:00"
+  }
+}

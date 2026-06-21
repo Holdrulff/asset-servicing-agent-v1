@@ -1,0 +1,282 @@
+{
+  "document_id": "06_petroquimica_litoral_grupamento",
+  "source_file": "data\\documents\\06_petroquimica_litoral_grupamento.pdf",
+  "ingestion": {
+    "method": "text_native",
+    "ocr_engine": null,
+    "pages": 1,
+    "ocr_confidence": null
+  },
+  "issuer": {
+    "value": "PETROQUÍMICA LITORAL S.A.",
+    "confidence_score": 1.0,
+    "source_text": "PETROQUÍMICA LITORAL S.A.\nCompanhia Aberta | CNPJ/ME nº 55.666.777/0001-08 | NIRE 35.300.000.006",
+    "source_location": "cabeçalho",
+    "rationale": "Nome da companhia no cabeçalho do aviso, confirmado pelo golden record."
+  },
+  "cnpj": {
+    "value": "55.666.777/0001-08",
+    "confidence_score": 1.0,
+    "source_text": "CNPJ/ME nº 55.666.777/0001-08",
+    "source_location": "cabeçalho",
+    "rationale": "CNPJ extraído do cabeçalho, confirmado pelo golden record."
+  },
+  "isin": {
+    "value": "BRPQLTACNOR8",
+    "confidence_score": 1.0,
+    "source_text": "Código de negociação PQLT3 (ISIN BRPQLTACNOR8)",
+    "source_location": "tabela",
+    "rationale": "ISIN extraído da tabela de dados do evento. Formato válido (check_digit falso por ser sintético — warning conhecido, não escalado). Confirmado pelo golden record."
+  },
+  "ticker": {
+    "value": "PQLT3",
+    "confidence_score": 1.0,
+    "source_text": "Código de negociação PQLT3 (ISIN BRPQLTACNOR8)",
+    "source_location": "tabela",
+    "rationale": "Ticker extraído da tabela, confirmado pelo golden record."
+  },
+  "event_type": {
+    "value": "GRUPAMENTO",
+    "confidence_score": 1.0,
+    "source_text": "AVISO AOS ACIONISTAS — Grupamento de Ações (Inplit)\n... aprovou o grupamento da totalidade das ações representativas do capital social, na proporção de 10 (dez) ações existentes para 1 (uma) ação",
+    "source_location": "corpo e tabela",
+    "rationale": "Classificado por substância: grupamento de ações (inplit), proporção 10:1, sem pagamento em caixa. Título e substância coincidem.",
+    "normalized_code": "GRUPAMENTO",
+    "classification_evidence": [
+      "grupamento da totalidade das ações",
+      "proporção de 10 (dez) ações existentes para 1 (uma) ação",
+      "sem modificação do valor do capital social",
+      "Tipo de evento Grupamento de ações (inplit)",
+      "Proporção 10:1"
+    ],
+    "title_vs_substance_conflict": false
+  },
+  "currency": "BRL",
+  "value_or_ratio": {
+    "kind": "ratio",
+    "gross_value": null,
+    "irrf_rate": null,
+    "net_value": null,
+    "ratio": "10:1",
+    "confidence_score": 1.0,
+    "source_text": "na proporção de 10 (dez) ações existentes para 1 (uma) ação\nProporção 10:1 (dez para uma)",
+    "source_location": "corpo e tabela",
+    "rationale": "Evento de grupamento (inplit) na proporção 10:1. Não há valor em caixa — é evento de proporção."
+  },
+  "dates": {
+    "approval": {
+      "value": "30/05/2026",
+      "confidence_score": 1.0,
+      "source_text": "Assembleia Geral Extraordinária realizada em 30 de maio de 2026",
+      "source_location": "corpo",
+      "rationale": "Data da AGE que aprovou o grupamento."
+    },
+    "data_com": {
+      "value": "26/06/2026",
+      "confidence_score": 1.0,
+      "source_text": "A posição acionária considerada para fins de grupamento será a do final do pregão de 26 de junho de 2026 (data-base do grupamento)",
+      "source_location": "corpo e tabela",
+      "rationale": "Data-base do grupamento (data de referência para posição acionária)."
+    },
+    "ex": {
+      "value": "29/06/2026",
+      "confidence_score": 1.0,
+      "source_text": "A partir de 29 de junho de 2026, as ações passarão a ser negociadas já grupadas.",
+      "source_location": "corpo e tabela",
+      "rationale": "Data de início da negociação grupada (data ex)."
+    },
+    "payment": {
+      "value": null,
+      "confidence_score": 1.0,
+      "source_text": null,
+      "source_location": null,
+      "rationale": "Grupamento não envolve pagamento em caixa. O período de ajuste de frações (29/06/2026 a 28/07/2026) não constitui data de pagamento."
+    }
+  },
+  "validation": {
+    "golden_record": {
+      "status": "matched",
+      "matched_on": [
+        "isin",
+        "ticker",
+        "cnpj",
+        "issuer"
+      ],
+      "discrepancies": [],
+      "row": {
+        "emissor": "Petroquímica Litoral S.A.",
+        "cnpj": "55.666.777/0001-08",
+        "isin": "BRPQLTACNOR8",
+        "ticker": "PQLT3",
+        "classe": "ON",
+        "segmento_listagem": "Nível 2",
+        "status": "ativo"
+      }
+    },
+    "isin": {
+      "isin": "BRPQLTACNOR8",
+      "format_valid": true,
+      "check_digit_valid": false,
+      "country": "BR",
+      "country_ok": true,
+      "status": "format_only"
+    },
+    "coherence": {
+      "dates": {
+        "checks": [
+          {
+            "rule": "ordering",
+            "pair": "approval<=data_com",
+            "ok": true
+          },
+          {
+            "rule": "ordering",
+            "pair": "data_com<=ex",
+            "ok": true
+          },
+          {
+            "rule": "ex_after_com",
+            "ok": true,
+            "detail": "3d"
+          }
+        ],
+        "violations": [],
+        "ok": true,
+        "max_severity": "none"
+      },
+      "value": {
+        "checks": [
+          {
+            "rule": "ratio_no_cash",
+            "ok": true
+          }
+        ],
+        "violations": [],
+        "ok": true,
+        "max_severity": "none"
+      }
+    }
+  },
+  "confidence_overall": {
+    "confidence_score": 1.0,
+    "drivers": [
+      "golden: matched (+)",
+      "isin: dígito não confere (warning, lote sintético)"
+    ]
+  },
+  "review": {
+    "required": false,
+    "severity": "none",
+    "reasons": [],
+    "suggested_action": "auto-aprovar"
+  },
+  "agent_audit": {
+    "steps": 5,
+    "tool_calls": [
+      {
+        "step": 0,
+        "name": "read_document"
+      },
+      {
+        "step": 1,
+        "name": "log_reasoning"
+      },
+      {
+        "step": 1,
+        "name": "validate_isin"
+      },
+      {
+        "step": 1,
+        "name": "lookup_golden_record"
+      },
+      {
+        "step": 2,
+        "name": "check_date_coherence"
+      },
+      {
+        "step": 2,
+        "name": "check_value_coherence"
+      },
+      {
+        "step": 3,
+        "name": "log_reasoning"
+      },
+      {
+        "step": 4,
+        "name": "submit_record"
+      }
+    ],
+    "critic_verdict": {
+      "veredito_geral": "ok",
+      "rebaixar_confianca": false,
+      "campos": [
+        {
+          "campo": "issuer",
+          "concorda": true,
+          "motivo": "Nome da companhia no cabeçalho do aviso, confirmado pelo texto."
+        },
+        {
+          "campo": "cnpj",
+          "concorda": true,
+          "motivo": "CNPJ extraído do cabeçalho, presente no documento."
+        },
+        {
+          "campo": "isin",
+          "concorda": true,
+          "motivo": "ISIN extraído da tabela, formato válido. Check digit inválido é esperado para lote sintético, não é motivo de suspeita."
+        },
+        {
+          "campo": "ticker",
+          "concorda": true,
+          "motivo": "Ticker extraído da tabela, confirmado pelo texto."
+        },
+        {
+          "campo": "event_type",
+          "concorda": true,
+          "motivo": "Classificação por substância correta: grupamento de ações (inplit), título e substância coincidem."
+        },
+        {
+          "campo": "currency",
+          "concorda": true,
+          "motivo": "Moeda BRL implícita, coerente com documento brasileiro."
+        },
+        {
+          "campo": "value_or_ratio",
+          "concorda": true,
+          "motivo": "Proporção 10:1 extraída do corpo e tabela, evento sem valor em caixa."
+        },
+        {
+          "campo": "dates.approval",
+          "concorda": true,
+          "motivo": "Data da AGE 30/05/2026, suportada pelo texto."
+        },
+        {
+          "campo": "dates.data_com",
+          "concorda": true,
+          "motivo": "Data-base do grupamento 26/06/2026, presente no texto."
+        },
+        {
+          "campo": "dates.ex",
+          "concorda": true,
+          "motivo": "Data de início da negociação grupada 29/06/2026, presente no texto."
+        },
+        {
+          "campo": "dates.payment",
+          "concorda": true,
+          "motivo": "Sem pagamento em caixa, corretamente nulo."
+        }
+      ],
+      "parse_ok": true,
+      "ran": true
+    },
+    "self_consistency_runs": 1,
+    "tokens": 26604,
+    "duration_s": 40.122
+  },
+  "extraction_metadata": {
+    "provider": "deepseek",
+    "model": "deepseek-v4-flash",
+    "prompt_version": "v1",
+    "timestamp": "2026-06-21T22:03:22.721179+00:00"
+  }
+}

@@ -1,0 +1,273 @@
+{
+  "document_id": "02_banco_meridional_jcp",
+  "source_file": "data\\documents\\02_banco_meridional_jcp.pdf",
+  "ingestion": {
+    "method": "text_native",
+    "ocr_engine": null,
+    "pages": 1,
+    "ocr_confidence": null
+  },
+  "issuer": {
+    "value": "Banco Meridional do Brasil S.A.",
+    "confidence_score": 1.0,
+    "source_text": "BANCO MERIDIONAL DO BRASIL S.A.",
+    "source_location": "cabeçalho",
+    "rationale": "Nome da companhia no cabeçalho do aviso, texto nativo claro."
+  },
+  "cnpj": {
+    "value": "60.111.222/0001-55",
+    "confidence_score": 1.0,
+    "source_text": "CNPJ/ME nº 60.111.222/0001-55",
+    "source_location": "cabeçalho",
+    "rationale": "CNPJ explícito no cabeçalho do documento."
+  },
+  "isin": {
+    "value": "BRBMRDACNPR7",
+    "confidence_score": 1.0,
+    "source_text": "ISIN BRBMRDACNPR7",
+    "source_location": "tabela",
+    "rationale": "ISIN extraído da tabela no final do aviso. ISIN sintético (check_digit_valid=false) conhecido do lote, golden confirma."
+  },
+  "ticker": {
+    "value": "BMRD4",
+    "confidence_score": 1.0,
+    "source_text": "Código de negociação BMRD4",
+    "source_location": "tabela",
+    "rationale": "Ticker explícito na tabela de detalhes do evento."
+  },
+  "event_type": {
+    "value": "Juros sobre o Capital Próprio (JCP)",
+    "confidence_score": 1.0,
+    "source_text": "Juros sobre o Capital Próprio (JCP)",
+    "source_location": "cabeçalho",
+    "rationale": "Classificado por substância: art. 9º Lei 9.249/95, IRRF 17,5%, imputado ao dividendo obrigatório. Título e substância coincidem.",
+    "normalized_code": "JCP",
+    "classification_evidence": [
+      "art. 9º da Lei nº 9.249/95",
+      "IRRF à alíquota de 17,5%",
+      "imputado aos dividendos obrigatórios do exercício"
+    ],
+    "title_vs_substance_conflict": false
+  },
+  "currency": "BRL",
+  "value_or_ratio": {
+    "kind": "cash_per_share",
+    "gross_value": 0.173842,
+    "irrf_rate": 0.175,
+    "net_value": 0.14341965,
+    "ratio": null,
+    "confidence_score": 1.0,
+    "source_text": "Valor bruto por ação preferencial (PN) R$ 0,1738420000 / IRRF na fonte 17,5% / Valor líquido por ação (PN) R$ 0,1434196500",
+    "source_location": "tabela",
+    "rationale": "Líquido = bruto × (1 − 0,175) = 0,173842 × 0,825 = 0,14341965. Confere perfeitamente."
+  },
+  "dates": {
+    "approval": {
+      "value": "02/06/2026",
+      "confidence_score": 1.0,
+      "source_text": "reunião realizada em 02 de junho de 2026",
+      "source_location": "corpo",
+      "rationale": "Data da reunião do Conselho de Administração que aprovou o crédito."
+    },
+    "data_com": {
+      "value": "16/06/2026",
+      "confidence_score": 1.0,
+      "source_text": "16 de junho de 2026",
+      "source_location": "corpo/tabela",
+      "rationale": "Data com explícita no corpo e na tabela."
+    },
+    "ex": {
+      "value": "17/06/2026",
+      "confidence_score": 1.0,
+      "source_text": "17 de junho de 2026",
+      "source_location": "corpo/tabela",
+      "rationale": "Data ex-JCP explícita no corpo e na tabela."
+    },
+    "payment": {
+      "value": "14/08/2026",
+      "confidence_score": 1.0,
+      "source_text": "14/08/2026",
+      "source_location": "tabela",
+      "rationale": "Data de pagamento na tabela."
+    }
+  },
+  "validation": {
+    "golden_record": {
+      "status": "matched",
+      "matched_on": [
+        "isin",
+        "ticker",
+        "cnpj",
+        "issuer"
+      ],
+      "discrepancies": [],
+      "row": {
+        "emissor": "Banco Meridional do Brasil S.A.",
+        "cnpj": "60.111.222/0001-55",
+        "isin": "BRBMRDACNPR7",
+        "ticker": "BMRD4",
+        "classe": "PN",
+        "segmento_listagem": "Nível 1",
+        "status": "ativo"
+      }
+    },
+    "isin": {
+      "isin": "BRBMRDACNPR7",
+      "format_valid": true,
+      "check_digit_valid": false,
+      "country": "BR",
+      "country_ok": true,
+      "status": "format_only"
+    },
+    "coherence": {
+      "dates": {
+        "checks": [
+          {
+            "rule": "ordering",
+            "pair": "approval<=data_com",
+            "ok": true
+          },
+          {
+            "rule": "ordering",
+            "pair": "data_com<=ex",
+            "ok": true
+          },
+          {
+            "rule": "ordering",
+            "pair": "ex<=payment",
+            "ok": true
+          },
+          {
+            "rule": "ex_after_com",
+            "ok": true,
+            "detail": "1d"
+          }
+        ],
+        "violations": [],
+        "ok": true,
+        "max_severity": "none"
+      },
+      "value": {
+        "checks": [
+          {
+            "rule": "net=gross*(1-irrf)",
+            "ok": true,
+            "expected_net": 0.14341965,
+            "got_net": 0.14341965,
+            "tol": 0.0014341965
+          }
+        ],
+        "violations": [],
+        "ok": true,
+        "max_severity": "none"
+      }
+    }
+  },
+  "confidence_overall": {
+    "confidence_score": 1.0,
+    "drivers": [
+      "golden: matched (+)",
+      "isin: dígito não confere (warning, lote sintético)"
+    ]
+  },
+  "review": {
+    "required": false,
+    "severity": "none",
+    "reasons": [],
+    "suggested_action": "auto-aprovar"
+  },
+  "agent_audit": {
+    "steps": 5,
+    "tool_calls": [
+      {
+        "step": 0,
+        "name": "read_document"
+      },
+      {
+        "step": 1,
+        "name": "log_reasoning"
+      },
+      {
+        "step": 1,
+        "name": "validate_isin"
+      },
+      {
+        "step": 1,
+        "name": "lookup_golden_record"
+      },
+      {
+        "step": 2,
+        "name": "check_date_coherence"
+      },
+      {
+        "step": 2,
+        "name": "check_value_coherence"
+      },
+      {
+        "step": 3,
+        "name": "log_reasoning"
+      },
+      {
+        "step": 4,
+        "name": "submit_record"
+      }
+    ],
+    "critic_verdict": {
+      "veredito_geral": "ok",
+      "rebaixar_confianca": false,
+      "campos": [
+        {
+          "campo": "issuer",
+          "concorda": true,
+          "motivo": "Nome da companhia conforme cabeçalho do aviso."
+        },
+        {
+          "campo": "cnpj",
+          "concorda": true,
+          "motivo": "CNPJ explícito no cabeçalho do documento."
+        },
+        {
+          "campo": "isin",
+          "concorda": true,
+          "motivo": "ISIN encontrado na tabela; check_digit inválido é esperado (sintético)."
+        },
+        {
+          "campo": "ticker",
+          "concorda": true,
+          "motivo": "Código de negociação BMRD4 explícito na tabela."
+        },
+        {
+          "campo": "event_type",
+          "concorda": true,
+          "motivo": "Classificação correta por substância (art. 9º, IRRF 17,5%, imputado a dividendos)."
+        },
+        {
+          "campo": "currency",
+          "concorda": true,
+          "motivo": "Moeda BRL implícita pelo uso de R$ no documento."
+        },
+        {
+          "campo": "value_or_ratio",
+          "concorda": true,
+          "motivo": "Valores bruto, IRRF e líquido conferem com o texto e cálculo."
+        },
+        {
+          "campo": "dates",
+          "concorda": true,
+          "motivo": "Todas as datas explicitamente presentes e coerentes entre si."
+        }
+      ],
+      "parse_ok": true,
+      "ran": true
+    },
+    "self_consistency_runs": 1,
+    "tokens": 26561,
+    "duration_s": 37.345
+  },
+  "extraction_metadata": {
+    "provider": "deepseek",
+    "model": "deepseek-v4-flash",
+    "prompt_version": "v1",
+    "timestamp": "2026-06-21T22:03:19.943572+00:00"
+  }
+}

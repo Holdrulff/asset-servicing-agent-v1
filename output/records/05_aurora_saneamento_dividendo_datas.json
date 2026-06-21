@@ -1,0 +1,310 @@
+{
+  "document_id": "05_aurora_saneamento_dividendo_datas",
+  "source_file": "data\\documents\\05_aurora_saneamento_dividendo_datas.pdf",
+  "ingestion": {
+    "method": "text_native",
+    "ocr_engine": null,
+    "pages": 1,
+    "ocr_confidence": null
+  },
+  "issuer": {
+    "value": "AURORA SANEAMENTO S.A.",
+    "confidence_score": 1.0,
+    "source_text": "AURORA SANEAMENTO S.A.",
+    "source_location": "cabeçalho",
+    "rationale": "Nome da companhia no cabeçalho do aviso"
+  },
+  "cnpj": {
+    "value": "22.333.444/0001-77",
+    "confidence_score": 1.0,
+    "source_text": "CNPJ/ME nº 22.333.444/0001-77",
+    "source_location": "cabeçalho",
+    "rationale": "CNPJ no cabeçalho do documento, confirmado pelo golden record"
+  },
+  "isin": {
+    "value": "BRAURSACNOR4",
+    "confidence_score": 1.0,
+    "source_text": "ISIN BRAURSACNOR4",
+    "source_location": "corpo",
+    "rationale": "ISIN extraído do texto. Formato válido. Dígito mod-10 inválido (sintético conhecido). Golden record confirmou."
+  },
+  "ticker": {
+    "value": "AURS3",
+    "confidence_score": 1.0,
+    "source_text": "Código de negociação AURS3",
+    "source_location": "corpo",
+    "rationale": "Ticker extraído do corpo do aviso, confirmado pelo golden record"
+  },
+  "event_type": {
+    "value": "DIVIDENDO",
+    "confidence_score": 1.0,
+    "source_text": "Dividendo intercalar / distribuição de dividendos intercalares à conta de reservas de lucros",
+    "source_location": "corpo",
+    "rationale": "Classificado como DIVIDENDO por substância: distribuição de lucros (reservas de lucros), sem menção a TJLP ou remuneração do capital próprio. O título 'Dividendo intercalar' é consistente com a substância.",
+    "normalized_code": "DIVIDENDO",
+    "classification_evidence": [
+      "distribuição de dividendos intercalares à conta de reservas de lucros",
+      "sem menção a TJLP",
+      "sem menção a JCP/Juros sobre Capital Próprio"
+    ],
+    "title_vs_substance_conflict": false
+  },
+  "currency": "BRL",
+  "value_or_ratio": {
+    "kind": "cash_per_share",
+    "gross_value": 0.31,
+    "irrf_rate": null,
+    "net_value": null,
+    "ratio": null,
+    "confidence_score": 1.0,
+    "source_text": "Valor bruto por ação ON R$ 0,3100000000",
+    "source_location": "tabela",
+    "rationale": "Valor bruto de R$ 0,31 por ação. Sem IRRF mencionado no documento. Para dividendos (não JCP), não há retenção na fonte padrão, então net_value=null está correto."
+  },
+  "dates": {
+    "approval": {
+      "value": "01/06/2026",
+      "confidence_score": 1.0,
+      "source_text": "Data de aprovação (RCA) 01/06/2026",
+      "source_location": "tabela",
+      "rationale": "Data da reunião do Conselho de Administração"
+    },
+    "data_com": {
+      "value": "15/07/2026",
+      "confidence_score": 1.0,
+      "source_text": "Data-base (“data com”) 15/07/2026",
+      "source_location": "tabela",
+      "rationale": "Data-base para direito ao provento"
+    },
+    "ex": {
+      "value": "16/07/2026",
+      "confidence_score": 1.0,
+      "source_text": "Data “ex-dividendos” 16/07/2026",
+      "source_location": "tabela",
+      "rationale": "Data ex-dividendos"
+    },
+    "payment": {
+      "value": "10/07/2026",
+      "confidence_score": 1.0,
+      "source_text": "Data de pagamento 10/07/2026",
+      "source_location": "tabela",
+      "rationale": "Data de pagamento conforme documento. ATENÇÃO: esta data é anterior à data com (15/07) e ex (16/07), gerando incoerência - ver agent_review."
+    }
+  },
+  "validation": {
+    "golden_record": {
+      "status": "matched",
+      "matched_on": [
+        "isin",
+        "ticker",
+        "cnpj",
+        "issuer"
+      ],
+      "discrepancies": [],
+      "row": {
+        "emissor": "Aurora Saneamento S.A.",
+        "cnpj": "22.333.444/0001-77",
+        "isin": "BRAURSACNOR4",
+        "ticker": "AURS3",
+        "classe": "ON",
+        "segmento_listagem": "Novo Mercado",
+        "status": "ativo"
+      }
+    },
+    "isin": {
+      "isin": "BRAURSACNOR4",
+      "format_valid": true,
+      "check_digit_valid": false,
+      "country": "BR",
+      "country_ok": true,
+      "status": "format_only"
+    },
+    "coherence": {
+      "dates": {
+        "checks": [
+          {
+            "rule": "ordering",
+            "pair": "approval<=data_com",
+            "ok": true
+          },
+          {
+            "rule": "ordering",
+            "pair": "data_com<=ex",
+            "ok": true
+          },
+          {
+            "rule": "ordering",
+            "pair": "ex<=payment",
+            "ok": false
+          },
+          {
+            "rule": "ex_after_com",
+            "ok": true,
+            "detail": "1d"
+          }
+        ],
+        "violations": [
+          {
+            "rule": "ordering",
+            "fields": [
+              "ex",
+              "payment"
+            ],
+            "severity": "alta",
+            "detail": "ex (2026-07-16) posterior a payment (2026-07-10)"
+          }
+        ],
+        "ok": false,
+        "max_severity": "alta"
+      },
+      "value": {
+        "checks": [
+          {
+            "rule": "net=gross*(1-irrf)",
+            "ok": null,
+            "detail": "dados insuficientes (bruto/líquido/irrf)"
+          }
+        ],
+        "violations": [],
+        "ok": true,
+        "max_severity": "none"
+      }
+    }
+  },
+  "confidence_overall": {
+    "confidence_score": 0.75,
+    "drivers": [
+      "golden: matched (+)",
+      "isin: dígito não confere (warning, lote sintético)",
+      "coerência: violação alta (--)"
+    ]
+  },
+  "review": {
+    "required": true,
+    "severity": "alta",
+    "reasons": [
+      {
+        "code": "date_incoherence",
+        "severity": "alta",
+        "detail": "ex (2026-07-16) posterior a payment (2026-07-10)",
+        "suggested_action": "reler datas no aviso / conciliar"
+      },
+      {
+        "code": "agent_flagged",
+        "severity": "alta",
+        "detail": "A data de pagamento (10/07/2026) é ANTERIOR à data com (15/07/2026) e à data ex (16/07/2026), violando a ordenação esperada aprovação ≤ data_com ≤ ex ≤ pagamento. A leitura foi confirmada por re-leitura da página - não se trata de erro de OCR. O documento apresenta inconsistência factual entre as datas. Necessário esclarecimento com a companhia para definir qual(is) data(s) está(ão) correta(s).",
+        "suggested_action": "rever conforme apontado pelo agente"
+      }
+    ],
+    "suggested_action": "reler datas no aviso / conciliar"
+  },
+  "agent_audit": {
+    "steps": 7,
+    "tool_calls": [
+      {
+        "step": 0,
+        "name": "read_document"
+      },
+      {
+        "step": 1,
+        "name": "read_page"
+      },
+      {
+        "step": 2,
+        "name": "validate_isin"
+      },
+      {
+        "step": 2,
+        "name": "lookup_golden_record"
+      },
+      {
+        "step": 3,
+        "name": "check_date_coherence"
+      },
+      {
+        "step": 4,
+        "name": "check_value_coherence"
+      },
+      {
+        "step": 5,
+        "name": "log_reasoning"
+      },
+      {
+        "step": 6,
+        "name": "submit_record"
+      }
+    ],
+    "critic_verdict": {
+      "veredito_geral": "ok",
+      "rebaixar_confianca": false,
+      "campos": [
+        {
+          "campo": "issuer",
+          "concorda": true,
+          "motivo": "Nome da companhia extraído corretamente do cabeçalho do documento."
+        },
+        {
+          "campo": "cnpj",
+          "concorda": true,
+          "motivo": "CNPJ presente no cabeçalho do documento."
+        },
+        {
+          "campo": "isin",
+          "concorda": true,
+          "motivo": "ISIN extraído do corpo do documento; formato válido, dígito sintético esperado."
+        },
+        {
+          "campo": "ticker",
+          "concorda": true,
+          "motivo": "Ticker AURS3 extraído do corpo do documento."
+        },
+        {
+          "campo": "event_type",
+          "concorda": true,
+          "motivo": "Classificação como DIVIDENDO consistente com a substância do evento (distribuição de lucros)."
+        },
+        {
+          "campo": "currency",
+          "concorda": true,
+          "motivo": "Moeda BRL implícita pelos valores em R$ e contexto brasileiro."
+        },
+        {
+          "campo": "value_or_ratio",
+          "concorda": true,
+          "motivo": "Valor bruto por ação de R$ 0,31 extraído da tabela; ausência de IRRF condizente com dividendo."
+        },
+        {
+          "campo": "dates.approval",
+          "concorda": true,
+          "motivo": "Data de aprovação extraída da tabela."
+        },
+        {
+          "campo": "dates.data_com",
+          "concorda": true,
+          "motivo": "Data com extraída da tabela."
+        },
+        {
+          "campo": "dates.ex",
+          "concorda": true,
+          "motivo": "Data ex-dividendos extraída da tabela."
+        },
+        {
+          "campo": "dates.payment",
+          "concorda": true,
+          "motivo": "Data de pagamento extraída da tabela, embora inconsistente com as demais datas no documento (incoerência documental, não erro de extração)."
+        }
+      ],
+      "parse_ok": true,
+      "ran": true
+    },
+    "self_consistency_runs": 1,
+    "tokens": 39493,
+    "duration_s": 66.398
+  },
+  "extraction_metadata": {
+    "provider": "deepseek",
+    "model": "deepseek-v4-flash",
+    "prompt_version": "v1",
+    "timestamp": "2026-06-21T22:03:48.997556+00:00"
+  }
+}

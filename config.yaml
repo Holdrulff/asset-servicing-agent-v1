@@ -1,0 +1,45 @@
+provider: deepseek          
+
+providers:
+  deepseek:
+    base_url: https://api.deepseek.com
+    model: deepseek-v4-flash
+    api_key_env: DEEPSEEK_API_KEY
+  openai:
+    base_url: https://api.openai.com/v1
+    model: gpt-4o-mini
+    api_key_env: OPENAI_API_KEY
+  replay:                    
+    model: replay-fixtures
+
+temperature: 0   # obrigatório: determinismo e reprodutibilidade das traces (não aumentar)              
+max_steps: 12               
+prompt_version: v1
+
+max_workers: 4              
+retry:
+  max_attempts: 4
+  backoff_base_s: 2.0
+request_timeout_s: 60         # timeout por chamada de LLM (segundos)
+
+golden_path: "data/golden_records/golden records.csv"
+
+thresholds:
+  low_confidence_score: 0.6        
+  value_rel_tolerance: 0.01        
+  value_abs_tolerance: 0.0001      
+  ocr_caps_confidence_at: media    
+
+self_consistency:
+  enabled: true
+  runs: 3
+  triggers: [ocr, low_confidence]  
+
+critic:
+  enabled: true
+
+ocr:
+  lang: por
+
+isin:
+  check_digit_escalates: false

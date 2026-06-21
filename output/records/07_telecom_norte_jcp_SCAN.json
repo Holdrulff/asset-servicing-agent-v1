@@ -1,0 +1,281 @@
+{
+  "document_id": "07_telecom_norte_jcp_SCAN",
+  "source_file": "data\\documents\\07_telecom_norte_jcp_SCAN.pdf",
+  "ingestion": {
+    "method": "ocr",
+    "ocr_engine": "rapidocr(pp-ocr/onnx)",
+    "pages": 1,
+    "ocr_confidence": 0.868
+  },
+  "issuer": {
+    "value": "Telecom Norte Participações S.A.",
+    "confidence_score": 0.82,
+    "source_text": "TELECOMNORTEPARTICIPACOESS.A.\nCompanhiaAbertaJ-CNPj/MEno33.222.111/0001-44",
+    "source_location": "cabeçalho",
+    "rationale": "Nome extraído via OCR do cabeçalho do documento, confirmado pelo golden record (matched on issuer). Pequena fusão de palavras típica de OCR."
+  },
+  "cnpj": {
+    "value": "33.222.111/0001-44",
+    "confidence_score": 0.82,
+    "source_text": "CNPj/MEno33.222.111/0001-44",
+    "source_location": "cabeçalho",
+    "rationale": "CNPJ extraído do cabeçalho, confirmado pelo golden record."
+  },
+  "isin": {
+    "value": "BRTLNRACNPR2",
+    "confidence_score": 0.79,
+    "source_text": "TLNR4(ISINBRTLNRACNPR2)",
+    "source_location": "corpo",
+    "rationale": "ISIN extraído do corpo do aviso. Formato válido, dígito mod-10 inválido (sintético - esperado conforme regras do lote). Golden record confirma."
+  },
+  "ticker": {
+    "value": "TLNR4",
+    "confidence_score": 0.82,
+    "source_text": "Codigo denegociacao....\nTLNR4(ISINBRTLNRACNPR2)",
+    "source_location": "corpo",
+    "rationale": "Ticker extraído do corpo do aviso, confirmado pelo golden record."
+  },
+  "event_type": {
+    "value": "JCP",
+    "confidence_score": 0.95,
+    "source_text": "Jurossobre oCapitalProprio (JcP)\n...nos termos do art.9daLei n?9.249/95,comretencaodeImposto.deRendanaFonte(IRRF)aaliquotade17,5%.sobreovalorbruto.",
+    "source_location": "cabeçalho/corpo",
+    "rationale": "Classificado como JCP por substância: título explícito 'Juros sobre o Capital Próprio (JCP)', cita art. 9 da Lei 9.249/95 e IRRF de 17,5%. Sem conflito título×substância.",
+    "normalized_code": "JCP",
+    "classification_evidence": [
+      "Juros sobre o Capital Proprio (JcP)",
+      "art. 9 da Lei n° 9.249/95",
+      "IRRF 17,5%"
+    ],
+    "title_vs_substance_conflict": false
+  },
+  "currency": "BRL",
+  "value_or_ratio": {
+    "kind": "cash_per_share",
+    "gross_value": 0.11243,
+    "irrf_rate": 0.175,
+    "net_value": 0.09275475,
+    "ratio": null,
+    "confidence_score": 0.79,
+    "source_text": "Valorbruto poracao PN\nR$0,1124300000\nIRRFnafonte..\n17.5%\nValorliquidoporacaoPN....,R$.0,0927547500",
+    "source_location": "corpo/tabela",
+    "rationale": "Valores extraídos da seção tabular do aviso. Verificação: 0,11243 × (1-0,175) = 0,09275475, confere exatamente. Confiança limitada a 0,79 por origem OCR."
+  },
+  "dates": {
+    "approval": {
+      "value": "06/06/2026",
+      "confidence_score": 0.82,
+      "source_text": "reuniao realizadaem06 de junho de 2026",
+      "source_location": "corpo",
+      "rationale": "Data da reunião do Conselho de Administração que aprovou o crédito."
+    },
+    "data_com": {
+      "value": "22/06/2026",
+      "confidence_score": 0.79,
+      "source_text": "aofinaldodia22dejunhode2026(datacom)",
+      "source_location": "corpo",
+      "rationale": "Data-base / data com."
+    },
+    "ex": {
+      "value": "23/06/2026",
+      "confidence_score": 0.79,
+      "source_text": "Data'ex-JCP..\n23/06/2026",
+      "source_location": "corpo/tabela",
+      "rationale": "Data ex-JCP, tabela do aviso."
+    },
+    "payment": {
+      "value": "21/08/2026",
+      "confidence_score": 0.79,
+      "source_text": "Data de pagamento\n21/08/2026",
+      "source_location": "corpo/tabela",
+      "rationale": "Data de pagamento, conforme tabela do aviso."
+    }
+  },
+  "validation": {
+    "golden_record": {
+      "status": "matched",
+      "matched_on": [
+        "isin",
+        "ticker",
+        "cnpj",
+        "issuer"
+      ],
+      "discrepancies": [],
+      "row": {
+        "emissor": "Telecom Norte Participações S.A.",
+        "cnpj": "33.222.111/0001-44",
+        "isin": "BRTLNRACNPR2",
+        "ticker": "TLNR4",
+        "classe": "PN",
+        "segmento_listagem": "Tradicional",
+        "status": "ativo"
+      }
+    },
+    "isin": {
+      "isin": "BRTLNRACNPR2",
+      "format_valid": true,
+      "check_digit_valid": false,
+      "country": "BR",
+      "country_ok": true,
+      "status": "format_only"
+    },
+    "coherence": {
+      "dates": {
+        "checks": [
+          {
+            "rule": "ordering",
+            "pair": "approval<=data_com",
+            "ok": true
+          },
+          {
+            "rule": "ordering",
+            "pair": "data_com<=ex",
+            "ok": true
+          },
+          {
+            "rule": "ordering",
+            "pair": "ex<=payment",
+            "ok": true
+          },
+          {
+            "rule": "ex_after_com",
+            "ok": true,
+            "detail": "1d"
+          }
+        ],
+        "violations": [],
+        "ok": true,
+        "max_severity": "none"
+      },
+      "value": {
+        "checks": [
+          {
+            "rule": "net=gross*(1-irrf)",
+            "ok": true,
+            "expected_net": 0.09275475,
+            "got_net": 0.09275475,
+            "tol": 0.0009275475
+          }
+        ],
+        "violations": [],
+        "ok": true,
+        "max_severity": "none"
+      }
+    }
+  },
+  "confidence_overall": {
+    "confidence_score": 0.732,
+    "drivers": [
+      "golden: matched (+)",
+      "isin: dígito não confere (warning, lote sintético)",
+      "origem OCR: confiança limitada"
+    ]
+  },
+  "review": {
+    "required": true,
+    "severity": "media",
+    "reasons": [
+      {
+        "code": "ocr_origin",
+        "severity": "media",
+        "detail": "documento escaneado (OCR) — extração não confirmada por texto nativo",
+        "suggested_action": "validar campos contra o digitalizado"
+      }
+    ],
+    "suggested_action": "validar campos contra o digitalizado"
+  },
+  "agent_audit": {
+    "steps": 6,
+    "tool_calls": [
+      {
+        "step": 0,
+        "name": "read_document"
+      },
+      {
+        "step": 1,
+        "name": "run_ocr"
+      },
+      {
+        "step": 2,
+        "name": "validate_isin"
+      },
+      {
+        "step": 2,
+        "name": "lookup_golden_record"
+      },
+      {
+        "step": 3,
+        "name": "check_date_coherence"
+      },
+      {
+        "step": 3,
+        "name": "check_value_coherence"
+      },
+      {
+        "step": 4,
+        "name": "log_reasoning"
+      },
+      {
+        "step": 5,
+        "name": "submit_record"
+      }
+    ],
+    "critic_verdict": {
+      "veredito_geral": "ok",
+      "rebaixar_confianca": false,
+      "campos": [
+        {
+          "campo": "issuer",
+          "concorda": true,
+          "motivo": "O nome 'Telecom Norte Participações S.A.' está suportado pelo cabeçalho do documento com leve variação de OCR (TELECOMNORTEPARTICIPACOESS.A.)."
+        },
+        {
+          "campo": "cnpj",
+          "concorda": true,
+          "motivo": "CNPJ 33.222.111/0001-44 extraído diretamente do cabeçalho do documento."
+        },
+        {
+          "campo": "isin",
+          "concorda": true,
+          "motivo": "ISIN BRTLNRACNPR2 aparece no corpo do documento como 'ISINBRTLNRACNPR2'. Dígito sintético conforme esperado para este lote."
+        },
+        {
+          "campo": "ticker",
+          "concorda": true,
+          "motivo": "Ticker TLNR4 presente no corpo do documento como 'TLNR4(ISIN...)'."
+        },
+        {
+          "campo": "event_type",
+          "concorda": true,
+          "motivo": "Classificado como JCP com base no título 'Juros sobre o Capital Proprio (JcP)', referência ao art. 9 da Lei 9.249/95 e alíquota de IRRF de 17,5%, todos no documento."
+        },
+        {
+          "campo": "currency",
+          "concorda": true,
+          "motivo": "Moeda BRL implícita pelo uso de 'R$' no documento."
+        },
+        {
+          "campo": "value_or_ratio",
+          "concorda": true,
+          "motivo": "Valores bruto (R$ 0,11243), IRRF (17,5%) e líquido (R$ 0,09275475) extraídos da tabela do corpo do documento, com consistência matemática verificada."
+        },
+        {
+          "campo": "dates",
+          "concorda": true,
+          "motivo": "Todas as datas (aprovação 06/06/2026, data-com 22/06/2026, ex 23/06/2026, pagamento 21/08/2026) estão suportadas pelo texto do documento."
+        }
+      ],
+      "parse_ok": true,
+      "ran": true
+    },
+    "self_consistency_runs": 3,
+    "tokens": 30210,
+    "duration_s": 142.944
+  },
+  "extraction_metadata": {
+    "provider": "deepseek",
+    "model": "deepseek-v4-flash",
+    "prompt_version": "v1",
+    "timestamp": "2026-06-21T22:05:05.543863+00:00"
+  }
+}
